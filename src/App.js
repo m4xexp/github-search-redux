@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { connect } from "react-redux";
 
-function App() {
+function App(props) {
+  let getUsername;
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const username = getUsername.value;
+    console.log(username);
+  }
+
+  console.log(props.data);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <form onSubmit={handleSubmit} className="form">
+        <h2 className="title">Enter the github username</h2>
+        <input
+          type="text"
+          placeholder="Enter Github username"
+          required
+          ref={(input) => (getUsername = input)}
+        />
+        <button className="button">Submit</button>
+      </form>
     </div>
   );
 }
 
-export default App;
+function mapStateToProp(state) {
+  return {
+    data: state,
+  };
+}
+
+export default connect(mapStateToProp)(App);

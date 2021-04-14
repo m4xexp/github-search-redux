@@ -1,5 +1,7 @@
 import "./App.css";
 import { connect } from "react-redux";
+import { thunk_action_creator } from "./actions/fetchAction";
+import UserInfo from "./UserInfo";
 
 function App(props) {
   let getUsername;
@@ -7,7 +9,8 @@ function App(props) {
   function handleSubmit(e) {
     e.preventDefault();
     const username = getUsername.value;
-    console.log(username);
+    props.dispatch(thunk_action_creator(username));
+    getUsername.value = "";
   }
 
   console.log(props.data);
@@ -24,6 +27,13 @@ function App(props) {
         />
         <button className="button">Submit</button>
       </form>
+      {props.data.isFetching ? <h3>Loading...</h3> : null}
+      {props.data.isError ? (
+        <h3 className="error">No such user exist</h3>
+      ) : null}
+      {Object.keys(props.data.userData).length > 0 ? (
+        <UserInfo user={props.data.userData} />
+      ) : null}
     </div>
   );
 }

@@ -42,7 +42,7 @@ input {
 
 ::placeholder {
   font-size: 1.2rem;
-  font-family: "Brandon Grotesque";
+  font-family: "Rubik", sans-serif;
 }
 
 .form {
@@ -58,6 +58,8 @@ input {
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-gap: 20px;
+  /* display: flex;
+  justify-content: space-around; */
   background: #fff;
   padding: 2rem;
   border-radius: 40px;
@@ -67,6 +69,10 @@ input {
 }
 .content {
   line-height: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 20px;
 }
 
 .error {
@@ -76,7 +82,7 @@ input {
 }
 
 .avatar {
-  border-right: 1px solid rgba(0, 0, 0, 0.12);
+  /* border-right: 1px solid rgba(0, 0, 0, 0.12); */
   display: flex;
   align-items: flex-start;
 }

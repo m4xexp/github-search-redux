@@ -1,6 +1,6 @@
 import store from "../store";
 
-export const fecth_post = () => {
+export const fetch_post = () => {
   return {
     type: "FETCH_USER",
   };
@@ -13,7 +13,7 @@ export const recieve_post = (post) => {
   };
 };
 
-export const recive_error = () => {
+export const recieve_error = () => {
   return {
     type: "RECIEVE_ERROR",
   };
@@ -21,15 +21,18 @@ export const recive_error = () => {
 
 export const thunk_action_creator = (username) => {
   const user = username.replace(/\s/g, "");
-  store.dispatch(fecth_post());
+  store.dispatch(fetch_post());
   return function (dispatch, getState) {
-    return fetch(`https:://api.github.com/users/${user}`)
+    return fetch(`https://api.github.com/users/${user}`)
       .then((data) => data.json())
       .then((data) => {
         if (data.message === "Not Found") {
           throw new Error("No such user found! ");
         } else dispatch(recieve_post(data));
       })
-      .catch((err) => dispatch(recive_error()));
+      .catch((err) => {
+        dispatch(recieve_error());
+        console.warn(err);
+      });
   };
 };
